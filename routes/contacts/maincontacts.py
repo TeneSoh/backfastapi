@@ -11,7 +11,7 @@ class ContactModel(BaseModel):
     email :str
     phone :str
     pays :str
-
+# bonjour
 @router.get('')
 async def getAllContacts(db:db_dependency):
     contacts = db.query(Contact).all()

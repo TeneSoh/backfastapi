@@ -38,27 +38,27 @@ def authenticate(db:db_dependency , email:str, password:str):
     return user
 
 def create_access_token(nom:str, id:int, expired_minute:int):
-    paylod = {'sub':nom, "id":id, "scope":"access_token"}
+    payload = {'sub':nom, "id":id, "scope":"access_token"}
     expired_time = datetime.now(timezone.utc) + timedelta(minutes=expired_minute)
-    paylod.update({"exp":expired_time})
+    payload.update({"exp":expired_time})
 
     access_token = jwt.encode(
-        claims=paylod, key=secrete_key, algorithm='HS256'
+        claims=payload, key=secrete_key, algorithm='HS256'
     )
 
     return access_token
 
 
 def create_refresh_token(nom:str, id:int, expired_date:int= 7):
-    paylod = {'sub':nom, "id":id, "scope":"access_token"}
+    payload = {'sub':nom, "id":id, "scope":"refresh_token"}
     expired_time = datetime.now(timezone.utc) + timedelta(days=expired_date)
-    paylod.update({"exp":expired_time})
+    payload.update({"exp":expired_time})
 
-    access_token = jwt.encode(
-        claims=paylod, key=secrete_key, algorithm='HS256'
+    refresh_token = jwt.encode(
+        claims=payload, key=secrete_key, algorithm='HS256'
     )
 
-    return access_token
+    return refresh_token
 
 
 @route.post('/store-user', status_code=status.HTTP_201_CREATED)
