@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from routes.contacts import maincontacts
+from routes.auth import auth
 
 app = FastAPI()
 
@@ -12,4 +13,5 @@ app = FastAPI()
 # async def storeData(data):
 #    return {"data":data}
 
+app.include_router(auth.route)
 app.include_router(maincontacts.router)
